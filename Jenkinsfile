@@ -2,13 +2,13 @@ pipeline {
     agent any
 
     parameters {
-         string(name: 'tomcat_dev', defaultValue: '52.91.211.129', description: 'Staging Server')
-         string(name: 'tomcat_prod', defaultValue: '100.25.221.126', description: 'Production Server')
+        string(name: 'tomcat_dev', defaultValue: '52.91.211.129', description: 'Staging Server')
+        string(name: 'tomcat_prod', defaultValue: '100.25.221.126', description: 'Production Server')
     }
 
     triggers {
          pollSCM('* * * * *')
-     }
+    }
 
 stages{
         stage('Build'){
