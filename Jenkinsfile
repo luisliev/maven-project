@@ -31,7 +31,7 @@ stages{
                     }
                 }
 
-                stage ("deploy-to-production"){
+                stage ("deploy-to-prod"){
                     steps {
                         bat "winscp **/target/*.war user@${params.tomcat_prod}:/var/lib/tomcat/webapps"
                     }
