@@ -13,7 +13,7 @@ pipeline {
 stages{
         stage('Build'){
             steps {
-                sh 'mvn clean package'
+                bat 'mvn clean package'
             }
             post {
                 success {
@@ -25,15 +25,15 @@ stages{
 
         stage ('Deployments'){
             parallel{
-                stage ('Deploy to Staging'){
+                stage ('deploy-to-staging'){
                     steps {
-                        sh "scp **/target/*.war user@${params.tomcat_dev}:/var/lib/tomcat/webapps"
+                        bat "winscp **/target/*.war user@${params.tomcat_dev}:/var/lib/tomcat/webapps"
                     }
                 }
 
-                stage ("Deploy to Production"){
+                stage ("deploy-to-production"){
                     steps {
-                        sh "scp **/target/*.war user@${params.tomcat_prod}:/var/lib/tomcat/webapps"
+                        bat "winscp **/target/*.war user@${params.tomcat_prod}:/var/lib/tomcat/webapps"
                     }
                 }
             }
