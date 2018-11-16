@@ -14,7 +14,7 @@ stages{
         stage('Build'){
             steps {
                 // sh 'export PATH=/home/user/apache-maven-3.6.0/bin:$PATH'
-                sh 'mvn clean package'
+                sh '/home/user/apache-maven-3.6.0/bin/mvn clean'
             }
             post {
                 success {
