@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     parameters {
-        string(name: 'tomcat_dev', defaultValue: '52.91.211.129', description: 'Staging Server')
-        string(name: 'tomcat_prod', defaultValue: '100.25.221.126', description: 'Production Server')
+        string(name: 'tomcat_dev', defaultValue: '100.27.23.86', description: 'Staging Server')
+        string(name: 'tomcat_prod', defaultValue: '54.145.88.106', description: 'Production Server')
     }
 
     triggers {
@@ -13,7 +13,7 @@ pipeline {
 stages{
         stage('Build'){
             steps {
-                bat 'mvn clean package'
+                sh 'mvn clean package'
             }
             post {
                 success {
@@ -27,13 +27,13 @@ stages{
             parallel{
                 stage ('deploy-to-staging'){
                     steps {
-                        bat "winscp **/target/*.war user@${params.tomcat_dev}:/var/lib/tomcat/webapps"
+                        sh "scp **/target/*.war user@${params.tomcat_dev}:/var/lib/tomcat/webapps"
                     }
                 }
 
                 stage ("deploy-to-prod"){
                     steps {
-                        bat "winscp **/target/*.war user@${params.tomcat_prod}:/var/lib/tomcat/webapps"
+                        sh "scp **/target/*.war user@${params.tomcat_prod}:/var/lib/tomcat/webapps"
                     }
                 }
             }
