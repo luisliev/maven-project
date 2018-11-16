@@ -13,6 +13,9 @@ pipeline {
 stages{
         stage('Build'){
             steps {
+                sh 'export M2_HOME=/home/user/apache-maven-3.6.0'
+                sh 'export M2=$M2_HOME/bin'
+                sh 'export PATH=$M2:$PATH'
                 sh 'mvn clean package'
             }
             post {
