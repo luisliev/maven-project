@@ -19,7 +19,7 @@ stages{
             post {
                 success {
                     echo 'Now Archiving...'
-                    archiveArtifacts artifacts: '**/target/*.war'
+                    archiveArtifacts artifacts: '**/*.war'
                 }
             }
         }
@@ -28,13 +28,13 @@ stages{
             parallel{
                 stage ('deploy-to-staging'){
                     steps {
-                        sh "scp **/target/*.war user@${params.tomcat_dev}:/var/lib/tomcat/webapps"
+                        sh "scp **/*.war user@${params.tomcat_dev}:/var/lib/tomcat/webapps"
                     }
                 }
 
                 stage ("deploy-to-prod"){
                     steps {
-                        sh "scp **/target/*.war user@${params.tomcat_prod}:/var/lib/tomcat/webapps"
+                        sh "scp **/*.war user@${params.tomcat_prod}:/var/lib/tomcat/webapps"
                     }
                 }
             }
