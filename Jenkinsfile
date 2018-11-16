@@ -14,7 +14,7 @@ stages{
         stage('Build'){
             steps {
                 // sh 'export PATH=/home/user/apache-maven-3.6.0/bin:$PATH'
-                bat 'mvn clean package'
+                sh 'mvn clean package'
             }
             post {
                 success {
@@ -28,13 +28,13 @@ stages{
             parallel{
                 stage ('deploy-to-staging'){
                     steps {
-                        bat "winscp **/target/*.war user@${params.tomcat_dev}:/var/lib/tomcat/webapps"
+                        sh "scp **/target/*.war user@${params.tomcat_dev}:/var/lib/tomcat/webapps"
                     }
                 }
 
                 stage ("deploy-to-prod"){
                     steps {
-                        bat "winscp **/target/*.war user@${params.tomcat_prod}:/var/lib/tomcat/webapps"
+                        sh "scp **/target/*.war user@${params.tomcat_prod}:/var/lib/tomcat/webapps"
                     }
                 }
             }
