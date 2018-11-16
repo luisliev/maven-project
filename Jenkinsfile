@@ -14,11 +14,15 @@ stages{
         stage('Build'){
             steps {
                 // sh 'export PATH=/home/user/apache-maven-3.6.0/bin:$PATH'
-                sh '/home/user/apache-maven-3.6.0/bin/mvn clean'
+                sh '/home/user/apache-maven-3.6.0/bin/mvn clean package'
+                echo '------'
+                sh 'ls -la'
+                echo '------'
             }
             post {
                 success {
                     echo 'Now Archiving...'
+                    sh 'ls -la'
                     archiveArtifacts artifacts: '**/target/*.jar'
                 }
             }
